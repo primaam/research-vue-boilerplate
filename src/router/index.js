@@ -1,38 +1,45 @@
-import { createRouter, createWebHistory } from 'vue-router';  
-import HomeView from '../pages/HomeView.vue'; 
-import DetailView from '../pages/DetailView.vue';
-import LoginView from '../pages/LoginView.vue';
+import { createRouter, createWebHistory } from "vue-router";
 
-const routes = [  
-    { 
-        path: '/login', 
-        component: LoginView,
-        meta: { requiresAuth: false } 
-    },
-    { 
-        path: '/', 
-        component: HomeView,
-        meta: { requiresAuth: true }  
-    },
-    {   path: '/detail/:id', 
-        component: DetailView, 
-        meta: { requiresAuth: true }
-    }  
-  ];  
-  
-  const router = createRouter({  
-    history: createWebHistory(),  
-    routes  
-  });  
+import AppLayout from "../layouts/AppLayout.vue";
+import AuthLayout from "../layouts/AuthLayout.vue";
 
-  router.beforeEach((to, from, next) => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    
+import HomeView from "../pages/HomeView.vue";
+import DetailView from "../pages/DetailView.vue";
+import LoginView from "../pages/LoginView.vue";
+
+const routes = [
+    {
+        path: "/",
+        component: AppLayout,
+        meta: { requiresAuth: true },
+        children: [
+            { path: "", component: HomeView },
+            { path: "detail/:id", component: DetailView },
+        ],
+    },
+    {
+        path: "/auth",
+        component: AuthLayout,
+        children: [
+            { path: "login", component: LoginView },
+            { path: "register", component: RegisterView },
+        ],
+    },
+];
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+});
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
     if (to.meta.requiresAuth && !isAuthenticated) {
-      next('/login');
+        next("/auth/login");
     } else {
-      next();
+        next();
     }
-  });
-  
-  export default router;
+});
+
+export default router;
