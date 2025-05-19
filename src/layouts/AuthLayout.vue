@@ -5,6 +5,7 @@
         </header>
         <main>
             <slot />
+            <p></p>
         </main>
         <footer class="auth-footer">
             <p>© 2025 Test APP</p>
@@ -13,10 +14,10 @@
 </template>
 
 <script setup>
-export default {};
+
 </script>
 
-<style>
+<style scoped>
 .auth-layout {
     background: #f5f5f5;
     min-height: 100vh;

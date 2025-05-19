@@ -16,7 +16,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
-import TodoModal from "@/components/TodoModal.vue";
+import TodoModal from "../components/TodoModal.vue";
 
 const route = useRoute();
 const todos = ref([

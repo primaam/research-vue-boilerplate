@@ -15,8 +15,8 @@
 
 <script setup>
 import { ref } from "vue";
-import TodoList from "@/components/TodoList.vue";
-import TodoModal from "@/components/TodoModal.vue";
+import TodoList from "../components/TodoList.vue";
+import TodoModal from "../components/TodoModal.vue";
 
 const todos = ref([
     { id: 1, title: "Belajar Vue" },
